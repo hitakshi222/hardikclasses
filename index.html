@@ -184,7 +184,7 @@
         <input type="url" id="ytInput" placeholder="https://youtu.be/..." />
       </div>
       <div class="form-group">
-        <label>Upload Notes File (PDF / Doc from PC - Keep under 5MB)</label>
+        <label>Upload Notes File (PDF / Doc from PC)</label>
         <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.png" />
       </div>
       <button class="btn-submit" id="uploadBtn" onclick="uploadContent()">Upload and Publish Instantly</button>
@@ -346,7 +346,6 @@
 
       btn.disabled = true;
       statusMsg.style.color = "var(--primary)";
-      statusMsg.innerText = "Uploading notes and publishing... Please wait.";
 
       let fileData = "";
       let fileName = "";
@@ -354,16 +353,13 @@
 
       if (fileInput.files.length > 0) {
         const file = fileInput.files[0];
-        if (file.size > 10 * 1024 * 1024) {
-          statusMsg.style.color = "var(--danger)";
-          statusMsg.innerText = "File is too large. Please keep files under 5MB for faster uploads.";
-          btn.disabled = false;
-          return;
-        }
+        statusMsg.innerText = "Reading file from PC...";
         fileData = await fileToBase64(file);
         fileName = file.name;
         mimeType = file.type;
       }
+
+      statusMsg.innerText = "Uploading to Google Drive & publishing... Please wait.";
 
       try {
         const res = await fetch(SCRIPT_URL, {
@@ -374,6 +370,7 @@
         if (result.status === "success") {
           statusMsg.style.color = "#16a34a";
           statusMsg.innerText = "Successfully published!";
+          document.getElementById("subjectInput").value = "";
           document.getElementById("titleInput").value = "";
           document.getElementById("ytInput").value = "";
           fileInput.value = "";
