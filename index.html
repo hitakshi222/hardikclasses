@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hardik Classes | Portal</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --danger: #ef4444;
+      --radius: 16px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 3rem; }
+    
+    header {
+      background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+      padding: 1rem 1.5rem;
+    }
+    .nav-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .brand h1 { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+    .brand span { font-size: 0.75rem; color: var(--muted); display: block; }
+
+    /* Role Toggle Switch */
+    .role-toggle {
+      display: flex; background: #e2e8f0; padding: 3px; border-radius: 12px;
+    }
+    .role-btn {
+      background: transparent; border: none; padding: 0.45rem 1.1rem; border-radius: 10px;
+      font-weight: 600; font-size: 0.85rem; cursor: pointer; color: var(--muted); transition: all 0.2s;
+    }
+    .role-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+    /* iOS Password Modal Dialog */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(6px); z-index: 999; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-box {
+      background: rgba(255, 255, 255, 0.96); width: 100%; max-width: 360px;
+      border-radius: 20px; padding: 1.75rem; text-align: center;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.18); animation: popIn 0.2s ease;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.93); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-box h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text); }
+    .modal-box p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.1rem; }
+    .modal-box input {
+      width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 12px;
+      font-size: 1rem; text-align: center; margin-bottom: 0.6rem; background: #f8fafc;
+    }
+    .modal-box input:focus { outline: none; border-color: var(--primary); background: white; }
+    .modal-error { color: var(--danger); font-size: 0.8rem; font-weight: 600; min-height: 1.2rem; margin-bottom: 0.75rem; }
+    .modal-actions { display: flex; gap: 0.6rem; }
+    .modal-actions button {
+      flex: 1; padding: 0.7rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem; cursor: pointer; border: none;
+    }
+    .btn-cancel { background: #f1f5f9; color: var(--muted); }
+    .btn-cancel:hover { background: #e2e8f0; }
+    .btn-unlock { background: var(--primary); color: white; }
+    .btn-unlock:hover { background: var(--primary-hover); }
+
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+
+    /* Admin Upload Panel */
+    #adminPanel {
+      display: none; background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow);
+    }
+    #adminPanel h2 { margin-bottom: 1.25rem; color: var(--primary); font-size: 1.25rem; font-weight: 700; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--muted); }
+    .form-group input {
+      width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 12px; font-size: 0.95rem; background: #f8fafc;
+    }
+    .form-group input:focus { outline: none; border-color: var(--primary); background: #fff; }
+    .btn-submit {
+      background: var(--primary); color: white; border: none; width: 100%; padding: 0.85rem;
+      border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 1rem; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+    .btn-submit:hover { background: var(--primary-hover); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    #statusMsg { margin-top: 1rem; font-weight: 600; font-size: 0.9rem; text-align: center; }
+
+    /* Controls & Filters Bar */
+    .controls { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .controls input, .controls select {
+      padding: 0.75rem 1.25rem; border: 1px solid var(--border); border-radius: 14px; background: white; font-size: 0.95rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .controls input { flex: 2; min-width: 220px; }
+    .controls select { flex: 1; min-width: 160px; }
+
+    /* Feed & Cards */
+    .feed { display: flex; flex-direction: column; gap: 1.5rem; }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.08); }
+
+    .card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+    .subject-pill { background: #eef2ff; color: var(--primary); padding: 3px 10px; border-radius: 8px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .card-body { padding: 1.5rem; }
+
+    .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 1.25rem; }
+    .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    .attachment-box {
+      display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--border);
+      border-radius: 12px; padding: 0.75rem 1.25rem; text-decoration: none; color: var(--text); background: #f8fafc;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .attachment-box:hover { background: #f1f5f9; border-color: #cbd5e1; }
+    .file-name { font-weight: 600; font-size: 0.9rem; color: var(--primary); }
+
+    .btn-delete {
+      background: #fee2e2; color: var(--danger); border: none; padding: 0.4rem 0.9rem;
+      border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; display: none;
+      transition: background 0.2s;
+    }
+    .btn-delete:hover { background: #fecaca; }
+    .teacher-mode .btn-delete { display: inline-block; }
+
+    .loader { text-align: center; padding: 4rem; color: var(--muted); font-weight: 600; font-size: 1.05rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Password Dialog Box Modal -->
+  <div class="modal-overlay" id="passwordModal">
+    <div class="modal-box">
+      <h3>🔒 Teacher Access</h3>
+      <p>Enter your password to unlock the upload panel</p>
+      <input type="password" id="modalPassInput" placeholder="Enter password" onkeydown="if(event.key==='Enter') verifyTeacher()" />
+      <div class="modal-error" id="modalError"></div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closePasswordModal()">Cancel</button>
+        <button class="btn-unlock" onclick="verifyTeacher()">Unlock</button>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <h1>Hardik Classes</h1>
+        <span>Est. 2004 • Student & Teacher Portal</span>
+      </div>
+      <!-- Role Toggle Switch -->
+      <div class="role-toggle">
+        <button class="role-btn active" id="studentTab" onclick="switchToStudent()">Student View</button>
+        <button class="role-btn" id="teacherTab" onclick="openPasswordModal()">Teacher Upload</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Teacher Admin Upload Panel -->
+    <div id="adminPanel">
+      <h2>📤 Teacher Upload Panel</h2>
+      <div class="form-group">
+        <label>Subject / Batch *</label>
+        <input type="text" id="subjectInput" placeholder="e.g., Physics, Class 12 Maths" />
+      </div>
+      <div class="form-group">
+        <label>Topic / Lecture Title *</label>
+        <input type="text" id="titleInput" placeholder="e.g., Chapter 1 - Complete Lecture" />
+      </div>
+      <div class="form-group">
+        <label>YouTube Video Link (Unlisted)</label>
+        <input type="url" id="ytInput" placeholder="https://youtu.be/..." />
+      </div>
+      <div class="form-group">
+        <label>Upload Notes File (PDF / Doc from PC - Keep under 5MB)</label>
+        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.png" />
+      </div>
+      <button class="btn-submit" id="uploadBtn" onclick="uploadContent()">Upload and Publish Instantly</button>
+      <div id="statusMsg"></div>
+    </div>
+
+    <!-- Search & Filters Bar -->
+    <div class="controls">
+      <input type="text" id="searchBox" placeholder="🔍 Search notes or lectures by topic..." oninput="renderFeed()" />
+      <select id="subjectFilter" onchange="renderFeed()">
+        <option value="ALL">All Subjects</option>
+      </select>
+    </div>
+
+    <!-- Feed Stream -->
+    <div id="loader" class="loader">Loading Hardik Classes stream...</div>
+    <div id="feedStream" class="feed"></div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZudGUwGvd_QOmhQhzuL2qVeSvsLrztCZ-cI1O7yW2ind-7G_bX8SFVszOM-p6gCWk/exec";
+    const TEACHER_PASS = "hardik2004"; // Matches ADMIN_PASSWORD in Apps Script
+
+    let allPosts = [];
+    let verifiedPassword = "";
+
+    function openPasswordModal() {
+      if (verifiedPassword) {
+        activateTeacherMode();
+        return;
+      }
+      document.getElementById("modalError").innerText = "";
+      document.getElementById("modalPassInput").value = "";
+      document.getElementById("passwordModal").style.display = "flex";
+      setTimeout(() => document.getElementById("modalPassInput").focus(), 100);
+    }
+
+    function closePasswordModal() {
+      document.getElementById("passwordModal").style.display = "none";
+    }
+
+    function verifyTeacher() {
+      const entered = document.getElementById("modalPassInput").value.trim();
+      if (entered === TEACHER_PASS) {
+        verifiedPassword = entered;
+        closePasswordModal();
+        activateTeacherMode();
+      } else {
+        document.getElementById("modalError").innerText = "Incorrect password. Please try again.";
+      }
+    }
+
+    function activateTeacherMode() {
+      document.getElementById("adminPanel").style.display = "block";
+      document.getElementById("teacherTab").classList.add("active");
+      document.getElementById("studentTab").classList.remove("active");
+      document.body.classList.add("teacher-mode");
+    }
+
+    function switchToStudent() {
+      document.getElementById("adminPanel").style.display = "none";
+      document.getElementById("studentTab").classList.add("active");
+      document.getElementById("teacherTab").classList.remove("active");
+      document.body.classList.remove("teacher-mode");
+    }
+
+    async function fetchStream() {
+      try {
+        const res = await fetch(SCRIPT_URL);
+        allPosts = await res.json();
+        document.getElementById("loader").style.display = "none";
+        populateSubjects();
+        renderFeed();
+      } catch (err) {
+        document.getElementById("loader").innerText = "Could not load stream. Please check your network connection.";
+      }
+    }
+
+    function populateSubjects() {
+      const select = document.getElementById("subjectFilter");
+      const subjects = [...new Set(allPosts.map(p => p.subject).filter(Boolean))];
+      select.innerHTML = `<option value="ALL">All Subjects</option>` +
+        subjects.map(s => `<option value="${s}">${s}</option>`).join("");
+    }
+
+    function renderFeed() {
+      const feed = document.getElementById("feedStream");
+      const query = document.getElementById("searchBox").value.toLowerCase();
+      const subject = document.getElementById("subjectFilter").value;
+
+      const filtered = allPosts.filter(post => {
+        const matchesSearch = post.title.toLowerCase().includes(query) || post.subject.toLowerCase().includes(query);
+        const matchesSubject = subject === "ALL" || post.subject === subject;
+        return matchesSearch && matchesSubject;
+      });
+
+      if (filtered.length === 0) {
+        feed.innerHTML = `<div style="text-align:center; padding: 3rem; color: var(--muted); background: white; border-radius: var(--radius); border: 1px solid var(--border);">No classes or notes found.</div>`;
+        return;
+      }
+
+      feed.innerHTML = filtered.map(post => {
+        const embedUrl = getYouTubeEmbedUrl(post.youtubeUrl);
+        return `
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">${post.title}</div>
+                <div style="font-size:0.8rem; color:var(--muted); margin-top:2px;">
+                  <span class="subject-pill">${post.subject}</span> • Posted on ${post.date}
+                </div>
+              </div>
+              <button class="btn-delete" onclick="deletePost('${post.id}')">Delete</button>
+            </div>
+            <div class="card-body">
+              ${embedUrl ? `<div class="video-wrap"><iframe src="${embedUrl}" allowfullscreen loading="lazy"></iframe></div>` : ""}
+              ${post.fileUrl ? `
+                <a href="${post.fileUrl}" target="_blank" class="attachment-box">
+                  <span style="font-size:1.4rem;">📄</span>
+                  <div>
+                    <div class="file-name">${post.fileName || "Download Class Notes"}</div>
+                    <div style="font-size:0.75rem; color:var(--muted);">PDF / Document</div>
+                  </div>
+                </a>` : ""}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function getYouTubeEmbedUrl(url) {
+      if (!url) return null;
+      const match = url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/);
+      return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = error => reject(error);
+      });
+    }
+
+    async function uploadContent() {
+      const subject = document.getElementById("subjectInput").value.trim();
+      const title = document.getElementById("titleInput").value.trim();
+      const youtubeUrl = document.getElementById("ytInput").value.trim();
+      const fileInput = document.getElementById("fileInput");
+      const statusMsg = document.getElementById("statusMsg");
+      const btn = document.getElementById("uploadBtn");
+
+      if (!subject || !title) {
+        statusMsg.style.color = "var(--danger)";
+        statusMsg.innerText = "Please fill in Subject and Title.";
+        return;
+      }
+
+      btn.disabled = true;
+      statusMsg.style.color = "var(--primary)";
+      statusMsg.innerText = "Uploading notes and publishing... Please wait.";
+
+      let fileData = "";
+      let fileName = "";
+      let mimeType = "";
+
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        if (file.size > 10 * 1024 * 1024) {
+          statusMsg.style.color = "var(--danger)";
+          statusMsg.innerText = "File is too large. Please keep files under 5MB for faster uploads.";
+          btn.disabled = false;
+          return;
+        }
+        fileData = await fileToBase64(file);
+        fileName = file.name;
+        mimeType = file.type;
+      }
+
+      try {
+        const res = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify({ password: verifiedPassword, subject, title, youtubeUrl, fileData, fileName, mimeType })
+        });
+        const result = await res.json();
+        if (result.status === "success") {
+          statusMsg.style.color = "#16a34a";
+          statusMsg.innerText = "Successfully published!";
+          document.getElementById("titleInput").value = "";
+          document.getElementById("ytInput").value = "";
+          fileInput.value = "";
+          fetchStream();
+        } else {
+          statusMsg.style.color = "var(--danger)";
+          statusMsg.innerText = "Error: " + result.message;
+        }
+      } catch (err) {
+        statusMsg.style.color = "var(--danger)";
+        statusMsg.innerText = "Upload failed. Check connection.";
+      }
+      btn.disabled = false;
+    }
+
+    async function deletePost(id) {
+      if (!confirm("Remove this post?")) return;
+
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "delete", id, password: verifiedPassword })
+      });
+      fetchStream();
+    }
+
+    fetchStream();
+  </script>
+</body>
+</html>
