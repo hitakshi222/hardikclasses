@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Soft pastel palette */
+      /* Soft pastel rotating card palette */
       --pastel-yellow-bg: #fefce8;
       --pastel-purple-bg: #f3e8ff;
       --pastel-blue-bg: #eff6ff;
@@ -558,6 +558,13 @@
       font-weight: 700;
       font-size: 1.05rem;
     }
+
+    @media (max-width: 600px) {
+      .hero-inner h2 { font-size: 1.35rem; }
+      .feed { grid-template-columns: 1fr; }
+      .category-tabs { width: 100%; }
+      .cat-tab { flex: 1; justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -596,9 +603,9 @@
   <!-- Premium Hero Section -->
   <section class="hero-banner">
     <div class="hero-inner">
-      <span class="hero-badge">🚀 SMART LEARNING PORTAL</span>
-      <h2>Welcome to Hardik Classes</h2>
-      <p>Access high-definition video lectures and downloadable study notes anytime, anywhere.</p>
+      <span class="hero-badge">🚀 LIVE & RECORDED BATCHES • NOTES LIBRARY</span>
+      <h2>Learn Smarter with Hardik Classes</h2>
+      <p>Access crisp video lectures and downloadable chapter notes anytime, anywhere.</p>
     </div>
   </section>
 
