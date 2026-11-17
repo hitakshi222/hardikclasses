@@ -7,22 +7,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Vedantu-inspired Vibrant EdTech Palette */
-      --primary: #ff5722;        /* Energetic Vedantu Orange */
-      --primary-hover: #f4511e;
-      --primary-light: #fff3ef;
-      --secondary: #1e293b;      /* Deep Navy / Slate */
-      --accent-blue: #2563eb;
-      --accent-green: #10b981;
-      --bg: #f4f6fb;             /* Soft Cool Off-White */
+      /* Soft pastel palette from reference */
+      --pastel-yellow: #fef08a;
+      --pastel-yellow-bg: #fefce8;
+      --pastel-purple: #e9d5ff;
+      --pastel-purple-bg: #f3e8ff;
+      --pastel-blue: #bfdbfe;
+      --pastel-blue-bg: #eff6ff;
+      --pastel-mint: #a7f3d0;
+      --pastel-mint-bg: #ecfdf5;
+
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --secondary: #1e293b;
+      --bg: #f8fafc;
       --card-bg: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
       --danger: #ef4444;
-      --radius: 16px;
-      --shadow: 0 8px 24px -4px rgba(17, 24, 39, 0.06);
-      --shadow-hover: 0 16px 32px -6px rgba(255, 87, 34, 0.14);
+      --radius: 20px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 20px 35px -5px rgba(0, 0, 0, 0.08);
     }
 
     * {
@@ -39,15 +45,15 @@
       padding-bottom: 4rem;
     }
 
-    /* Sticky Top Navbar */
+    /* Sticky Top Navbar with Custom Logo */
     header {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 100;
       padding: 0.85rem 1.5rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     }
 
     .nav-inner {
@@ -67,21 +73,30 @@
     }
 
     .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #ff5722, #ff8a65);
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #4f46e5, #ec4899);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       font-size: 1.25rem;
-      box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+      position: relative;
+    }
+
+    .brand-logo::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-radius: 12px;
     }
 
     .brand h1 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: var(--secondary);
       letter-spacing: -0.3px;
@@ -90,7 +105,7 @@
     .brand span {
       font-size: 0.75rem;
       font-weight: 600;
-      color: var(--primary);
+      color: var(--muted);
       display: block;
     }
 
@@ -116,72 +131,15 @@
     }
 
     .role-btn.active {
-      background: var(--primary);
-      color: white;
-      box-shadow: 0 3px 8px rgba(255, 87, 34, 0.25);
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
     }
 
-    /* Vedantu-style Hero Banner */
-    .hero-banner {
-      background: linear-gradient(120deg, #1e293b 0%, #0f172a 60%, #2a1810 100%);
-      color: white;
-      padding: 2rem 1.5rem 2.75rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-banner::after {
-      content: "";
-      position: absolute;
-      right: -5%;
-      top: -30%;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(255, 87, 34, 0.28) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(255, 87, 34, 0.2);
-      color: #ff8a65;
-      border: 1px solid rgba(255, 87, 34, 0.4);
-      padding: 4px 12px;
-      border-radius: 99px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      margin-bottom: 0.65rem;
-      letter-spacing: 0.4px;
-    }
-
-    .hero-inner h2 {
-      font-size: 1.75rem;
-      font-weight: 800;
-      margin-bottom: 0.35rem;
-      letter-spacing: -0.5px;
-    }
-
-    .hero-inner p {
-      color: #cbd5e1;
-      font-size: 0.95rem;
-      max-width: 600px;
-    }
-
-    /* Main Container */
     .container {
       max-width: 1120px;
-      margin: -1.6rem auto 0;
+      margin: 2rem auto 0;
       padding: 0 1.25rem;
-      position: relative;
-      z-index: 10;
     }
 
     /* Password Modal Dialog */
@@ -240,7 +198,7 @@
     #adminPanel {
       display: none;
       background: var(--card-bg);
-      border: 2px solid #ffedd5;
+      border: 2px solid var(--border);
       border-radius: var(--radius);
       padding: 1.75rem;
       margin-bottom: 1.75rem;
@@ -273,7 +231,7 @@
     .form-group input:focus { outline: none; border-color: var(--primary); background: #fff; }
 
     .btn-submit {
-      background: linear-gradient(135deg, #ff5722, #ff7043);
+      background: var(--primary);
       color: white;
       border: none;
       width: 100%;
@@ -282,21 +240,21 @@
       font-weight: 700;
       cursor: pointer;
       font-size: 0.98rem;
-      box-shadow: 0 6px 16px rgba(255, 87, 34, 0.28);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25);
       transition: transform 0.15s ease;
     }
     .btn-submit:hover { transform: translateY(-1px); }
     .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
     #statusMsg { margin-top: 0.85rem; font-weight: 700; font-size: 0.88rem; text-align: center; }
 
-    /* Search & Subject Filter Card */
+    /* Search Bar */
     .search-wrapper {
       background: #ffffff;
       padding: 1rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
     .controls {
@@ -319,90 +277,94 @@
       outline: none;
       border-color: var(--primary);
       background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
     }
 
     .controls input { flex: 2.5; min-width: 220px; }
     .controls select { flex: 1; min-width: 170px; font-weight: 600; cursor: pointer; }
 
-    /* 2 Category Tabs After Search Bar (Lectures & Notes) */
+    /* Pill-Style Selector Tabs (Videos & Notes) */
     .category-tabs {
       display: flex;
       gap: 0.75rem;
       margin-bottom: 1.5rem;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 0.75rem;
+      align-items: center;
     }
 
     .cat-tab {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      padding: 0.6rem 1.35rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--secondary);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 0.65rem 1.4rem;
-      border-radius: 12px;
-      border: 1.5px solid var(--border);
-      background: #ffffff;
-      color: var(--secondary);
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .cat-tab:hover {
-      border-color: var(--primary);
-      color: var(--primary);
+      border-color: var(--secondary);
     }
 
     .cat-tab.active {
-      background: var(--primary);
+      background: var(--secondary);
       color: #ffffff;
-      border-color: var(--primary);
-      box-shadow: 0 6px 16px rgba(255, 87, 34, 0.25);
+      border-color: var(--secondary);
+      box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
     }
 
     .tab-badge {
-      background: rgba(0, 0, 0, 0.08);
-      padding: 2px 8px;
+      background: #f1f5f9;
+      color: var(--secondary);
+      padding: 2px 7px;
       border-radius: 99px;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 800;
     }
 
     .cat-tab.active .tab-badge {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.2);
       color: #ffffff;
     }
 
-    /* Responsive Grid Feed (Prevents huge oversized video cards!) */
+    /* Responsive Grid Feed with Pastel Rotating Backgrounds */
     .feed {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
     }
 
     .card {
-      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+
+    /* Rotating pastel card variants matching reference */
+    .card:nth-child(4n + 1) { background-color: var(--pastel-yellow-bg); border-color: #fde047; }
+    .card:nth-child(4n + 2) { background-color: var(--pastel-purple-bg); border-color: #d8b4fe; }
+    .card:nth-child(4n + 3) { background-color: var(--pastel-blue-bg); border-color: #93c5fd; }
+    .card:nth-child(4n + 4) { background-color: var(--pastel-mint-bg); border-color: #6ee7b7; }
 
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       box-shadow: var(--shadow-hover);
-      border-color: #fed7aa;
     }
 
-    /* Compact Video Wrapper (No excessive padding!) */
+    /* Compact Video Wrapper */
     .video-wrap {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      height: 180px;
       background: #0f172a;
       overflow: hidden;
     }
@@ -415,34 +377,35 @@
       border: 0;
     }
 
-    /* Note Card Top Accent Banner (When in Notes Tab) */
+    /* Note Card Top Banner */
     .note-banner {
-      background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-      padding: 1rem 1.25rem;
+      padding: 0.85rem 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #fed7aa;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
     }
 
     .note-icon-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
       background: #ffffff;
       color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4rem;
-      box-shadow: 0 4px 10px rgba(255, 87, 34, 0.12);
+      font-size: 1.2rem;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
     }
 
     .card-content {
-      padding: 1.15rem 1.25rem;
+      padding: 0.9rem 1rem;
       display: flex;
       flex-direction: column;
       flex: 1;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
     }
 
     .card-meta {
@@ -450,32 +413,33 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
     .subject-pill {
-      background: var(--primary-light);
-      color: var(--primary);
-      padding: 3px 10px;
+      background: #ffffff;
+      color: var(--secondary);
+      padding: 2px 8px;
       border-radius: 6px;
       font-weight: 800;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
 
     .post-date {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--muted);
       font-weight: 500;
     }
 
     .card-title {
-      font-size: 1.05rem;
+      font-size: 0.98rem;
       font-weight: 700;
       color: var(--secondary);
-      margin-bottom: 0.85rem;
-      line-height: 1.4;
+      margin-bottom: 0.65rem;
+      line-height: 1.35;
     }
 
     .card-footer {
@@ -483,46 +447,48 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      padding-top: 0.75rem;
-      border-top: 1px solid #f1f5f9;
+      gap: 8px;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(0,0,0,0.06);
     }
 
     .attachment-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: #eff6ff;
-      color: var(--accent-blue);
-      border: 1px solid #dbeafe;
-      border-radius: 10px;
-      padding: 0.5rem 0.9rem;
+      gap: 6px;
+      background: #ffffff;
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       transition: all 0.2s;
       flex: 1;
       justify-content: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      cursor: pointer;
     }
 
     .attachment-btn:hover {
-      background: var(--accent-blue);
+      background: var(--primary);
       color: #ffffff;
+      border-color: var(--primary);
     }
 
     .btn-delete {
       background: #fee2e2;
       color: var(--danger);
       border: none;
-      padding: 0.5rem 0.85rem;
-      border-radius: 10px;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       display: none;
       transition: background 0.2s;
     }
-
     .btn-delete:hover { background: #fecaca; }
     .teacher-mode .btn-delete { display: inline-block; }
 
@@ -540,15 +506,15 @@
     .loader {
       text-align: center;
       padding: 4rem;
-      color: var(--primary);
+      color: var(--muted);
       font-weight: 700;
       font-size: 1.05rem;
     }
 
     @media (max-width: 600px) {
-      .hero-inner h2 { font-size: 1.35rem; }
       .feed { grid-template-columns: 1fr; }
-      .cat-tab { flex: 1; justify-content: center; padding: 0.6rem 0.8rem; font-size: 0.88rem; }
+      .category-tabs { width: 100%; }
+      .cat-tab { flex: 1; justify-content: center; }
     }
   </style>
 </head>
@@ -568,14 +534,14 @@
     </div>
   </div>
 
-  <!-- Top Navbar -->
+  <!-- Top Navbar with Logo -->
   <header>
     <div class="nav-inner">
       <div class="brand">
-        <div class="brand-logo">H</div>
+        <div class="brand-logo">HC</div>
         <div>
           <h1>Hardik Classes</h1>
-          <span>Est. 2004 • Smart Learning Portal</span>
+          <span>Est. 2004 • Student & Teacher Portal</span>
         </div>
       </div>
 
@@ -586,15 +552,6 @@
       </div>
     </div>
   </header>
-
-  <!-- Vedantu-Inspired Hero Section -->
-  <section class="hero-banner">
-    <div class="hero-inner">
-      <span class="hero-badge">🚀 LIVE & RECORDED BATCHES • NOTES LIBRARY</span>
-      <h2>Learn Smarter with Hardik Classes</h2>
-      <p>Access crisp video lectures and downloadable chapter notes anytime, anywhere.</p>
-    </div>
-  </section>
 
   <div class="container">
     <!-- Teacher Admin Upload Panel -->
@@ -624,7 +581,7 @@
       <div id="statusMsg"></div>
     </div>
 
-    <!-- Search & Subject Filter Card -->
+    <!-- Search Bar -->
     <div class="search-wrapper">
       <div class="controls">
         <input type="text" id="searchBox" placeholder="🔍 Search lectures or study notes by topic..." oninput="renderFeed()" />
@@ -634,7 +591,7 @@
       </div>
     </div>
 
-    <!-- 2 Tabs Right After Search Bar: Lectures & Notes -->
+    <!-- Pill-Style Selector Tabs (Videos & Notes) -->
     <div class="category-tabs">
       <button class="cat-tab active" id="tabLectures" onclick="switchContentTab('LECTURES')">
         🎥 Lectures <span class="tab-badge" id="lecturesCount">0</span>
@@ -655,7 +612,7 @@
 
     let allPosts = [];
     let verifiedPassword = "";
-    let activeContentTab = "LECTURES"; // Default tab: "LECTURES" or "NOTES"
+    let activeContentTab = "LECTURES";
 
     function openPasswordModal() {
       if (verifiedPassword) {
@@ -730,12 +687,32 @@
         subjects.map(s => `<option value="${s}">${s}</option>`).join("");
     }
 
+    /* Direct file downloader function to force download to user's device */
+    async function downloadFile(url, filename) {
+      if (!url) return;
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = blobUrl;
+        a.download = filename || 'document.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(a);
+      } catch (e) {
+        // Fallback to opening in new tab if cross-origin restricts blob download
+        window.open(url, '_blank');
+      }
+    }
+
     function renderFeed() {
       const feed = document.getElementById("feedStream");
       const query = document.getElementById("searchBox").value.toLowerCase();
       const subject = document.getElementById("subjectFilter").value;
 
-      // First filter by search & subject so tab counts stay accurate
       const baseFiltered = allPosts.filter(post => {
         const matchesSearch = (post.title || "").toLowerCase().includes(query) ||
                               (post.subject || "").toLowerCase().includes(query);
@@ -746,7 +723,6 @@
       const lecturePosts = baseFiltered.filter(p => Boolean(getYouTubeEmbedUrl(p.youtubeUrl)));
       const notePosts = baseFiltered.filter(p => Boolean(p.fileUrl));
 
-      // Update counts in tabs
       document.getElementById("lecturesCount").innerText = lecturePosts.length;
       document.getElementById("notesCount").innerText = notePosts.length;
 
@@ -761,6 +737,7 @@
       feed.innerHTML = itemsToShow.map(post => {
         const embedUrl = getYouTubeEmbedUrl(post.youtubeUrl);
         const cleanDate = formatReadableDate(post.date);
+        const safeFileName = post.fileName || "Study_Notes.pdf";
 
         if (activeContentTab === "LECTURES") {
           return `
@@ -776,9 +753,9 @@
                 <div class="card-title">${post.title}</div>
                 <div class="card-footer">
                   ${post.fileUrl ? `
-                    <a href="${post.fileUrl}" target="_blank" class="attachment-btn">
-                      📄 ${post.fileName || "Download Notes"}
-                    </a>` : `<span style="font-size:0.78rem; color:var(--muted);">Video Lecture</span>`}
+                    <button class="attachment-btn" onclick="downloadFile('${post.fileUrl}', '${safeFileName}')">
+                      ⬇️ Download Notes
+                    </button>` : `<span style="font-size:0.75rem; color:var(--muted);">Video Lecture</span>`}
                   <button class="btn-delete" onclick="deletePost('${post.id}')">Delete</button>
                 </div>
               </div>
@@ -793,14 +770,14 @@
               </div>
               <div class="card-content">
                 <div class="card-meta">
-                  <span style="font-size:0.78rem; font-weight:700; color:var(--accent-green);">● STUDY MATERIAL</span>
+                  <span style="font-size:0.72rem; font-weight:700; color:#059669;">● STUDY MATERIAL</span>
                   <span class="post-date">${cleanDate}</span>
                 </div>
                 <div class="card-title">${post.title}</div>
                 <div class="card-footer">
-                  <a href="${post.fileUrl}" target="_blank" class="attachment-btn">
-                    ⬇️ ${post.fileName || "Download PDF / Notes"}
-                  </a>
+                  <button class="attachment-btn" onclick="downloadFile('${post.fileUrl}', '${safeFileName}')">
+                    ⬇️ Download to Device
+                  </button>
                   <button class="btn-delete" onclick="deletePost('${post.id}')">Delete</button>
                 </div>
               </div>
